@@ -1,0 +1,55 @@
+# ---------------------------------------------------------------------------
+# Сборка и временные файлы
+build/
+cmake-build-*/
+/dist/
+*-macOS.zip
+render/
+*.wav
+!docs/**/*.wav
+*.log
+
+# macOS / IDE
+.DS_Store
+._*
+.idea/
+.vscode/
+*.xcuserstate
+xcuserdata/
+*.user
+
+# ---------------------------------------------------------------------------
+# Личное и секреты — никогда не публикуются
+# переменные окружения и ключи
+.env
+.env.*
+*.env
+secrets.*
+*secret*
+*credentials*
+*.pem
+*.key
+*.p12
+*.p8
+*.cer
+*.mobileprovision
+*.keychain
+*.keystore
+id_rsa*
+id_ed25519*
+.npmrc
+.netrc
+.pypirc
+
+# настройки ИИ-ассистентов и переписки с ними
+.claude/
+CLAUDE.local.md
+*.transcript*
+*conversation*
+*.chat.md
+
+# личные пресеты, семплы и заметки
+/presets-private/
+/samples/
+/notes/
+*.private.*
