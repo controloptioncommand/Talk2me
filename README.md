@@ -79,7 +79,7 @@
    Скрипт кладёт `Talk2Me.vst3` и `Talk2Me.component` в `~/Library/Audio/Plug-Ins` и снимает карантин macOS: плагин подписан ad-hoc, без сертификата Apple.
 3. Перезапустите Ableton или Settings → Plug-Ins → Rescan. Talk2Me — инструмент: кладите его на MIDI-дорожку.
 
-В архиве есть папка `demo` с примерами звучания. Подробно о каждой ручке — в **[руководстве](docs/MANUAL.md)**.
+В архиве есть папка `demo` с примерами звучания. Подробное руководство — **[Talk2Me-manual.pdf](docs/Talk2Me-manual.pdf)**, оно же лежит в архиве релиза.
 
 Нужен Mac на Apple Silicon и macOS 11 или новее. Каждое изменение в `main` автоматически собирается, проходит pluginval и auval и выкладывается в [Releases](https://github.com/controloptioncommand/Talk2me/releases).
 
@@ -90,7 +90,15 @@ cmake -B build -DT2M_BUILD_TESTS=ON && cmake --build build --config Release --ta
 ./build/T2MTest_artefacts/Release/T2MTest ./render
 ```
 
-JUCE 8 скачивается автоматически. Тест проверяет разбор текста, рендерит ноты во всех режимах, движках и чипах (не тишина, не NaN, не выше 0 dBFS), шаги по слогам и удержание гласной, состояние, все пресеты, скорость, пишет демо-WAV и снимает скриншоты интерфейса.
+JUCE 8 скачивается автоматически.
+
+Руководство в PDF собирается из `docs/manual/Talk2Me-manual.html`: тест снимает свежие скриншоты, Chromium печатает PDF в `docs/Talk2Me-manual.pdf` (нужны Python 3 с Pillow и Node.js с Playwright). Пересобирать при каждом изменении интерфейса, ручек или поведения:
+
+```bash
+bash docs/manual/build.sh
+```
+
+Тест проверяет разбор текста, рендерит ноты во всех режимах, движках и чипах (не тишина, не NaN, не выше 0 dBFS), шаги по слогам и удержание гласной, состояние, все пресеты, скорость, пишет демо-WAV и снимает скриншоты интерфейса.
 
 ## Устройство
 

@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Talk2Me — руководство</title>
+<style>
+@font-face { font-family: "Medeo Sans"; src: url("../../Resources/Fonts/MedeoSans-Regular.ttf"); font-weight: 400; }
+@font-face { font-family: "Medeo Sans"; src: url("../../Resources/Fonts/MedeoSans-SemiBold.ttf"); font-weight: 600; }
+@font-face { font-family: "Medeo Mono"; src: url("../../Resources/Fonts/MedeoMono-Regular.ttf"); font-weight: 400; }
+@font-face { font-family: "Medeo Mono"; src: url("../../Resources/Fonts/MedeoMono-SemiBold.ttf"); font-weight: 600; }
+@font-face { font-family: "Medeo Pixel"; src: url("../../Resources/Fonts/MedeoPixel-Regular.ttf"); }
+
+:root {
+  --window: #E4E5E1; --surface: #F5F5F2; --well: #E9EAE6; --track: #C2C3BE;
+  --ink: #131416; --ink2: #4B4D52; --signal: #E84A00; --carrier: #2740F0; --mod: #D7245E; --live: #138A62;
+  --outline: rgba(19,20,22,.12);
+}
+@page { size: A4; margin: 16mm 16mm 18mm 16mm; }
+@page :first { margin: 0; }
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { margin: 0; font-family: "Medeo Sans", sans-serif; font-size: 10pt; line-height: 1.5; color: var(--ink); background: #fff; }
+h1, h2, h3 { font-weight: 600; line-height: 1.2; margin: 0; }
+h2 { font-size: 20pt; margin: 0 0 4mm; padding-top: 1mm; }
+h2 .n { font-family: "Medeo Mono"; color: var(--signal); font-size: 11pt; vertical-align: 4pt; margin-right: 3mm; }
+h3 { font-size: 12pt; margin: 6mm 0 2mm; }
+p { margin: 0 0 2.5mm; }
+ul, ol { margin: 0 0 3mm; padding-left: 5mm; }
+li { margin-bottom: 1.2mm; }
+b, strong { font-weight: 600; }
+code, .mono { font-family: "Medeo Mono", monospace; font-size: 9pt; }
+code { background: var(--well); border: 1px solid var(--outline); border-radius: 4px; padding: 0 1.2mm; }
+.lead { font-size: 11.5pt; color: var(--ink2); margin-bottom: 5mm; }
+section { break-before: page; }
+.keep { break-inside: avoid; }
+
+figure { margin: 3mm 0 4mm; break-inside: avoid; }
+figure img { width: 100%; max-width: 150mm; margin: 0 auto; display: block; border-radius: 10px; border: 1px solid var(--outline); }
+figcaption { font-size: 8.5pt; color: var(--ink2); margin-top: 1.5mm; text-align: center; }
+.small img { max-width: 110mm; }
+.mid img { max-width: 118mm; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+.side { display: grid; grid-template-columns: 52mm 1fr; gap: 6mm; align-items: start; }
+
+table { width: 100%; border-collapse: collapse; margin: 1mm 0 4mm; font-size: 9.3pt; break-inside: auto; }
+th { text-align: left; font-weight: 600; color: var(--ink2); font-size: 8.5pt; text-transform: uppercase; letter-spacing: .04em;
+     border-bottom: 1px solid var(--ink); padding: 1.5mm 2mm 1.5mm 0; }
+td { border-bottom: 1px solid var(--outline); padding: 1.6mm 2mm 1.6mm 0; vertical-align: top; }
+tr { break-inside: avoid; }
+td:first-child { font-weight: 600; white-space: nowrap; }
+td.r { font-family: "Medeo Mono"; font-size: 8.6pt; color: var(--ink2); white-space: nowrap; }
+
+.note { background: var(--surface); border: 1px solid var(--outline); border-left: 3px solid var(--signal); border-radius: 8px;
+        padding: 3mm 4mm; margin: 3mm 0 4mm; break-inside: avoid; }
+.note b:first-child { color: var(--signal); }
+.chip { display: inline-block; font-size: 8.5pt; font-weight: 600; border-radius: 99px; padding: 0 2mm; border: 1px solid var(--outline); background: var(--surface); }
+.c { color: var(--carrier); font-weight: 600; } .m { color: var(--mod); font-weight: 600; } .s { color: var(--signal); font-weight: 600; }
+.steps { counter-reset: s; list-style: none; padding: 0; }
+.steps li { counter-increment: s; position: relative; padding-left: 9mm; margin-bottom: 2.5mm; }
+.steps li::before { content: counter(s); position: absolute; left: 0; top: .2mm; width: 6mm; height: 6mm; border-radius: 50%;
+  background: var(--ink); color: #fff; font-family: "Medeo Mono"; font-size: 8.5pt; text-align: center; line-height: 6mm; }
+
+/* обложка */
+.cover { height: 297mm; background: #0F1012; color: #EDEDE9; position: relative; overflow: hidden; break-after: page; }
+.cover .grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(237,237,233,.10) 1px, transparent 1.2px); background-size: 6mm 6mm; }
+.cover .logo { position: absolute; left: 0; right: 0; top: 96mm; text-align: center; font-family: "Medeo Pixel"; font-size: 84pt; line-height: 1; letter-spacing: 0; }
+.cover .sub { position: absolute; left: 0; right: 0; top: 140mm; text-align: center; font-size: 13pt; color: #A9AAAE; }
+.cover .sub b { color: #FF6B2C; font-weight: 600; }
+.cover .shot { position: absolute; left: 38mm; right: 38mm; top: 160mm; }
+.cover .shot img { width: 100%; border-radius: 12px; border: 1px solid rgba(237,237,233,.12); }
+.cover .foot { position: absolute; left: 16mm; right: 16mm; bottom: 12mm; display: flex; justify-content: space-between;
+  font-family: "Medeo Mono"; font-size: 8.5pt; color: #A9AAAE; }
+
+.toc { columns: 2; column-gap: 8mm; list-style: none; padding: 0; margin-top: 4mm; }
+.toc li { break-inside: avoid; display: flex; gap: 3mm; padding: 1.6mm 0; border-bottom: 1px solid var(--outline); }
+.toc .mono { color: var(--signal); width: 7mm; }
+.algs { columns: 2; column-gap: 8mm; font-size: 9pt; }
+.algs div { break-inside: avoid; display: grid; grid-template-columns: 7mm 30mm 1fr; padding: .9mm 0; border-bottom: 1px solid var(--outline); }
+.algs .mono { color: var(--ink2); font-size: 8.3pt; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="grid"></div>
+  <div class="logo">Talk2Me</div>
+  <div class="sub">Руководство пользователя · <b>v1</b></div>
+  <div class="shot"><img src="img/main.jpg"></div>
+  <div class="foot"><span>speech synth · VST3 · AU · macOS</span><span>made by nnn</span></div>
+</div>
+
+<section style="break-before: auto">
+  <h2>Содержание</h2>
+  <ul class="toc">
+    <li><span class="mono">01</span>Что такое Talk2Me</li>
+    <li><span class="mono">02</span>Установка</li>
+    <li><span class="mono">03</span>Первый звук за минуту</li>
+    <li><span class="mono">04</span>Окно плагина</li>
+    <li><span class="mono">05</span>Фраза</li>
+    <li><span class="mono">06</span>Главный вид: Script и Scope</li>
+    <li><span class="mono">07</span>Режимы игры</li>
+    <li><span class="mono">08</span>Ручки исполнения</li>
+    <li><span class="mono">09</span>Talk 96</li>
+    <li><span class="mono">10</span>Spell 80</li>
+    <li><span class="mono">11</span>Пресеты и настройки</li>
+    <li><span class="mono">12</span>Рецепты</li>
+    <li><span class="mono">13</span>Вопросы и ответы</li>
+  </ul>
+
+  <h2 style="margin-top: 10mm"><span class="n">01</span>Что такое Talk2Me</h2>
+  <p class="lead">Talk2Me — синтезатор речи, который поёт по нотам. Пишете фразу, играете на клавишах — голос произносит её на высоте нажатой ноты.</p>
+  <p>Это как talkbox, только вместо рта — синтез речи из прошлого. Два движка звучат по-разному:</p>
+  <ul>
+    <li><b>Talk 96</b> — формантный «компьютерный голос» в духе программ синтеза речи середины 90-х. Пять голосов: Male, Female, Child, Robot, Whisper.</li>
+    <li><b>Spell 80</b> — эмуляция чипа синтеза речи Texas Instruments из Speak &amp; Spell. Фраза кодируется в кадры LPC по 25 мс и играется через фильтр чипа. Три чипа: TMS5100 '79, TMC0281D '80, TMS5220.</li>
+    <li>Четыре режима игры: вся фраза на ноту, по слогам, по словам и «каждая клавиша — своё слово».</li>
+    <li>До 8 голосов, glide, вибрато, интонация речи поверх мелодии.</li>
+    <li>Любой английский текст: словарь на ≈126 тыс. слов, числа, названия букв и фонемы вручную.</li>
+    <li>12 фабричных пресетов. Фраза и настройки сохраняются в проекте Ableton.</li>
+  </ul>
+  <div class="note"><b>Честно о сходстве.</b> Talk 96 — собственный формантный синтез, подогнанный под характер звучания 90-х, а не движок тех программ. У Spell 80 таблицы и логика чипа точные (из эмулятора MAME), поэтому тембр и артефакты чиповые. Но под чипом звучит синтетический голос, а не диктор игрушки, — зато сказать можно что угодно.</div>
+  <div class="note"><b>Как читать.</b> Названия ручек и кнопок даны так, как они подписаны в плагине (по-английски). Диапазоны — моноширинным шрифтом.</div>
+</section>
+
+<section>
+  <h2><span class="n">02</span>Установка</h2>
+  <p>Нужен Mac с macOS 11 или новее. Плагин не подписан сертификатом Apple, поэтому ставится скриптом, который снимает карантин.</p>
+  <h3>Одной командой в Терминале</h3>
+  <p>Нужен установленный <code>gh</code> (GitHub CLI). Команда скачивает последний релиз, распаковывает и устанавливает:</p>
+  <p><code style="display:block; padding: 2.5mm 3mm; line-height: 1.6; white-space: pre-wrap; word-break: break-all;">cd ~/Downloads &amp;&amp; rm -rf Talk2Me-macOS Talk2Me-macOS.zip &amp;&amp; gh release download -R controloptioncommand/Talk2me -p Talk2Me-macOS.zip &amp;&amp; unzip -q Talk2Me-macOS.zip -d Talk2Me-macOS &amp;&amp; bash Talk2Me-macOS/install-mac.sh</code></p>
+  <h3>Вручную</h3>
+  <ol class="steps">
+    <li>Скачайте <b>Talk2Me-macOS.zip</b> со страницы релизов: <span class="mono">github.com/controloptioncommand/Talk2me/releases</span>.</li>
+    <li>Распакуйте архив двойным кликом.</li>
+    <li>В Терминале выполните <code>bash ~/Downloads/Talk2Me-macOS/install-mac.sh</code>. Скрипт кладёт <code>Talk2Me.vst3</code> и <code>Talk2Me.component</code> в <code>~/Library/Audio/Plug-Ins</code>.</li>
+    <li>Перезапустите Ableton. Если Talk2Me не появился: Settings → Plug-Ins → Rescan.</li>
+  </ol>
+  <p>В архиве есть папка <code>demo</code> с примерами звучания. Обновление — та же команда: новая версия заменит старую, проекты и пресеты не трогаются.</p>
+
+  <h2 style="margin-top: 10mm"><span class="n">03</span>Первый звук за минуту</h2>
+  <ol class="steps">
+    <li>Положите Talk2Me на MIDI-дорожку (это инструмент) и сыграйте ноту. Голос скажет «Talk to me».</li>
+    <li>Кликните по фразе и напишите свою, например <code>hello world</code>. Звук меняется сразу, пока печатаете. Return — готово.</li>
+    <li>Сыграйте мелодию, не отпуская предыдущую ноту перед следующей (легато): фраза идёт дальше, а высота следует за клавишами.</li>
+    <li>Переключите движок в тулбаре на <b>Spell 80</b> — та же фраза голосом чипа.</li>
+    <li>Внизу выберите режим <b>Syllables</b>: теперь каждая нота — следующий слог, гласная тянется, пока держите клавишу.</li>
+    <li>Листайте пресеты стрелками <b>‹ ›</b> в тулбаре.</li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="n">04</span>Окно плагина</h2>
+  <figure style="margin-top:0"><img src="img/main.jpg" style="max-width: 100mm"><figcaption>Главное окно в тёмной теме Rubber.</figcaption></figure>
+  <table>
+    <tr><th style="width:34mm">Зона</th><th>Что там</th></tr>
+    <tr><td>Тулбар</td><td>Логотип (клик — страница About), пресет <span class="mono">‹ имя ›</span>, движок Talk 96 / Spell 80, мини-спектрограмма, Pitch, Out, настройки.</td></tr>
+    <tr><td>Фраза</td><td>Текст, который произносит голос. Звучащий слог подсвечен, под текстом — фонемы.</td></tr>
+    <tr><td>Главный вид</td><td>Script — «партитура» фразы с курсорами нот, Scope — волна на выходе.</td></tr>
+    <tr><td>Панель</td><td>Слева режим игры и ручки исполнения, справа ручки выбранного движка.</td></tr>
+    <tr><td>Подвал</td><td>Poly, Loop, Chip pitch, счётчики Voices и CPU.</td></tr>
+  </table>
+  <h3>Тулбар</h3>
+  <figure><img src="img/toolbar.jpg"></figure>
+  <ul>
+    <li><b>‹ ›</b> — предыдущий и следующий пресет. Клик по имени — список: фабричные, ваши, Save preset…, Show presets folder.</li>
+    <li><b>Talk 96 / Spell 80</b> — движок.</li>
+    <li><b>Мини-спектрограмма</b> — просто украшение: спектр выхода пиксельной лентой.</li>
+    <li><b>Pitch</b> — транспонирование голоса на <span class="mono">±24</span> полутона. Двойной клик — 0.</li>
+    <li><b>Out</b> — громкость выхода <span class="mono">−36…+6 dB</span> (по умолчанию <span class="mono">−6</span>): тяните по шкале, двойной клик — <span class="mono">−6</span>. Цветная полоса — уровень сигнала, выше −1 dB она оранжевая. Выход защищён мягким лимитером: выше 0 dBFS не бывает.</li>
+    <li><b>Настройки</b> — тема, размер окна, сохранение пресета, About.</li>
+  </ul>
+  <div class="note"><b>Масштаб.</b> Окно тянется за правый нижний угол от 50 до 200%, пропорции сохраняются. Быстрые размеры: настройки → Size (75, 100, 125, 150%).</div>
+</section>
+
+<section>
+  <h2><span class="n">05</span>Фраза</h2>
+  <figure><img src="img/phrase.jpg"><figcaption>Звучащий слог подсвечен, ниже — фонемы по словам; звучащее слово ярче.</figcaption></figure>
+  <p>Клик по фразе (или Return, когда она в фокусе) — правка на месте. Звук меняется сразу, пока печатаете. <b>Return</b> — готово, <b>Esc</b> — вернуть как было. Длина — до <span class="mono">2000</span> символов.</p>
+  <figure><img src="img/phrase_edit.jpg"><figcaption>Режим правки.</figcaption></figure>
+  <h3>Что понимает</h3>
+  <table>
+    <tr><th style="width:40mm">Пишете</th><th>Что получится</th></tr>
+    <tr><td>Английский текст</td><td>Произношение по словарю CMUdict. Незнакомое слово — от знакомой основы с окончанием (<code>-s</code>, <code>-ed</code>, <code>-ing</code>, <code>-er</code>, <code>-ly</code>, <code>'s</code>), иначе по правилам чтения.</td></tr>
+    <tr><td><code>,</code> <code>;</code> <code>:</code>, перевод строки</td><td>Короткая пауза.</td></tr>
+    <tr><td><code>.</code> <code>!</code></td><td>Длинная пауза и конец интонационной фразы.</td></tr>
+    <tr><td><code>?</code></td><td>Длинная пауза, тон в конце поднимается.</td></tr>
+    <tr><td><code>42</code>, <code>1996</code></td><td>Числа словами (forty two), четырёхзначные годы — как годы (nineteen ninety six). Длинные числа и числа с нулём впереди — по цифрам.</td></tr>
+    <tr><td><code>S P E L L</code></td><td>Одиночная заглавная буква — название буквы. Исключение — <code>I</code> (местоимение).</td></tr>
+    <tr><td><code>{HH AH0 L OW1}</code></td><td>Фонемы вручную в обозначениях ARPAbet, как в CMUdict. Цифра после гласной — ударение: 1 главное, 2 второстепенное, 0 без ударения.</td></tr>
+  </table>
+  <div class="note"><b>Язык.</b> Только английский. Буквы не из латиницы пропускаются. Если слово читается неправильно — напишите его фонемами в фигурных скобках.</div>
+  <h3>Фонемы ARPAbet</h3>
+  <p class="mono" style="font-size: 8.6pt; color: var(--ink2)">Гласные: AA (father) AE (cat) AH (cut) AO (law) AW (cow) AY (my) EH (bed) ER (bird) EY (say) IH (sit) IY (see) OW (go) OY (boy) UH (book) UW (food)<br>Согласные: B CH D DH (this) F G HH JH (jam) K L M N NG (sing) P R S SH T TH (thin) V W Y Z ZH (vision)</p>
+</section>
+
+<section>
+  <h2><span class="n">06</span>Главный вид: Script и Scope</h2>
+  <figure><img src="img/view_talk.jpg"><figcaption>Script у Talk 96: точками — форманты F1–F3, оранжевая линия — звучащая нота.</figcaption></figure>
+  <p><b>Script</b> — «партитура» фразы. По горизонтали время всей фразы, по вертикали частота <span class="mono">0–4 kHz</span>. Квадраты — огибающая спектра по кадрам <span class="mono">25 ms</span>, цвет по громкости от −24 до 0 dB. Под ней слова, оранжевые линии — звучащие ноты (у каждой ноты в Poly — своя). Слева сверху — длительность фразы, число слов, слогов и кадров LPC.</p>
+  <figure><img src="img/view_spell.jpg"><figcaption>Script у Spell 80: те же кадры, что уходят в чип.</figcaption></figure>
+  <figure><img src="img/view_scope.jpg"><figcaption>Scope — волна на выходе.</figcaption></figure>
+  <p>Переключение — вкладки снизу справа или стрелки ← → (когда вид в фокусе).</p>
+</section>
+
+<section>
+  <h2><span class="n">07</span>Режимы игры</h2>
+  <p>Переключатель над ручками слева. Под ним — короткое описание выбранного режима.</p>
+  <table>
+    <tr><th style="width:30mm">Режим</th><th>Что делает нота</th></tr>
+    <tr><td>Phrase</td><td>Произносит всю фразу с начала. В моно, пока держится нота, следующая нажатая меняет только высоту (с Glide) — фраза не начинается заново. Так мелодия «едет» по словам, как talkbox. Отпустили все клавиши — затухание Release. <b>Loop</b> — фраза повторяется, пока нота нажата.</td></tr>
+    <tr><td>Syllables</td><td>Каждая нота — следующий слог. Пока клавиша нажата, тянется гласная слога. Отпустили — слог договаривается до конца (конечные согласные). После последнего слога — снова первый.</td></tr>
+    <tr><td>Words</td><td>То же, но по словам: тянется ударная гласная слова.</td></tr>
+    <tr><td>Keys</td><td>C3 (нота 60) — первое слово фразы, C#3 — второе и так далее по кругу, ниже C3 — с конца. Высота голоса постоянная: A2 (<span class="mono">110 Hz</span>) плюс Pitch.</td></tr>
+  </table>
+  <ul>
+    <li>Ноты, нажатые в пределах <span class="mono">30 ms</span> (аккорд), поют один и тот же слог или слово.</li>
+    <li>Счёт слогов и слов начинается заново при старте воспроизведения в Ableton и при смене фразы.</li>
+    <li><b>Poly</b> (подвал) — до 8 голосов, у каждого своя копия фразы. Без Poly — один голос, legato.</li>
+    <li>Колесо высоты — <span class="mono">±2</span> полутона, колесо модуляции добавляет вибрато.</li>
+  </ul>
+  <div class="note"><b>Петь текст.</b> Режим Syllables + Intonation 0: голос стоит ровно на нотах, каждая нота — слог. Длинная нота тянет гласную.</div>
+</section>
+
+<section>
+  <h2><span class="n">08</span>Ручки исполнения</h2>
+  <figure><img src="img/panel_talk.jpg"><figcaption>Панель: слева режим и ручки исполнения, справа ручки движка.</figcaption></figure>
+  <table>
+    <tr><th style="width:28mm">Ручка</th><th style="width:34mm">Диапазон</th><th>Что делает</th></tr>
+    <tr><td>Rate</td><td class="r">25–300%, 100%</td><td>Темп речи.</td></tr>
+    <tr><td>Intonation</td><td class="r">0–100%, 40%</td><td>Мелодия речи поверх ноты: понижение к концу фразы, подъём на ударных слогах, спад в конце или подъём на «?». 0 — голос ровно на ноте.</td></tr>
+    <tr><td>Glide</td><td class="r">0–1000 ms, 30 ms</td><td>Скольжение высоты к новой ноте.</td></tr>
+    <tr><td>Vibrato</td><td class="r">0–100%, 0</td><td>Вибрато <span class="mono">5.5 Hz</span>, до 0.6 полутона, вступает через 0.25 с после начала ноты. Колесо модуляции добавляет к нему.</td></tr>
+    <tr><td>Release</td><td class="r">5–2000 ms, 60 ms</td><td>Затухание после отпускания (Phrase). В конце фразы и слога — короткое затухание <span class="mono">10 ms</span>.</td></tr>
+  </table>
+</section>
+
+<section style="break-before: auto">
+  <h2 style="margin-top: 10mm"><span class="n">09</span>Talk 96</h2>
+  <p class="lead">Формантный голос середины 90-х: глоттальный импульс через каскад резонаторов, шумы — через параллельные полосы.</p>
+  <p>Внутренняя частота <span class="mono">11 025 Hz</span> — отсюда «телефонный» верх. Высоту задаёт нота, Intonation добавляет мелодию речи.</p>
+  <table>
+    <tr><th style="width:28mm">Ручка</th><th style="width:34mm">Диапазон</th><th>Что делает</th></tr>
+    <tr><td>Voice</td><td class="r">5 голосов</td><td><b>Male</b>, <b>Female</b>, <b>Child</b> — высота формант, форма импульса, дыхание. <b>Robot</b> — острый импульс. <b>Whisper</b> — без голоса, один шёпот.</td></tr>
+    <tr><td>Formant</td><td class="r">−50…+50%, 0</td><td>Сдвиг всех формант: −50% — ×0.71 (больше, ниже), +50% — ×1.41 (меньше, выше).</td></tr>
+    <tr><td>Breath</td><td class="r">0–100%, 10%</td><td>Шум дыхания в голосе.</td></tr>
+    <tr><td>Buzz</td><td class="r">0–100%, 25%</td><td>От мягкого импульса к острому щелчку — звук становится более «компьютерным».</td></tr>
+    <tr><td>Lo-fi</td><td class="r">0–100%, 35%</td><td>Разрядность 16 → 8 бит и ступеньки 11 кГц без сглаживания.</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2><span class="n">10</span>Spell 80</h2>
+  <figure><img src="img/panel_spell.jpg"><figcaption>Ручки Spell 80.</figcaption></figure>
+  <p class="lead">Эмуляция чипа синтеза речи Texas Instruments — того, что стоит в Speak &amp; Spell.</p>
+  <p>Фраза озвучивается формантным голосом на <span class="mono">8 kHz</span>, кодируется в кадры LPC по <span class="mono">25 ms</span> (предыскажение, анализ 10-го порядка, квантование по таблицам чипа) и играется эмуляцией чипа: интерполяция параметров по 8 подкадрам, chirp-импульс или шум, 10-звенный решётчатый фильтр в целых числах, 8-битный ЦАП с ограничением. Так TI готовила слова для ПЗУ игрушки. Высоту задаёт нота.</p>
+  <table>
+    <tr><th style="width:28mm">Ручка</th><th style="width:34mm">Диапазон</th><th>Что делает</th></tr>
+    <tr><td>Chip</td><td class="r">3 чипа</td><td><b>TMS5100 '79</b> — первый Speak &amp; Spell. <b>TMC0281D '80</b> — поздний Speak &amp; Spell и Compact (другая таблица громкости). <b>TMS5220</b> — TI-99/4A Speech и аркадные автоматы (другие коэффициенты и импульс).</td></tr>
+    <tr><td>Bend</td><td class="r">50–200%, 100%</td><td>Такт чипа, как при circuit bending: темп речи и форманты меняются вместе, высота ноты остаётся.</td></tr>
+    <tr><td>Drive</td><td class="r">−4…+4, 0</td><td>Громкость кадров ступенями ≈3 dB. Выше нуля — перегруз и ограничение в чипе.</td></tr>
+    <tr><td>Glitch</td><td class="r">0–100%, 0</td><td>Случайно переворачивает биты в кадрах и прыгает по «ПЗУ» на несколько кадров — как замкнутые дорожки в игрушке.</td></tr>
+    <tr><td>Lo-fi</td><td class="r">0–100%, 35%</td><td>Ступеньки ЦАП <span class="mono">8 kHz</span> без сглаживания.</td></tr>
+    <tr><td>Chip pitch</td><td class="r">вкл / выкл</td><td>Высота только целым числом отсчётов периода, как у железа: на высоких нотах звук «плывёт» от строя.</td></tr>
+  </table>
+  <div class="note"><b>Voice и Formant</b> влияют и на Spell 80: голос, который кодируется в кадры, берётся с этими настройками. Меняйте их на Talk 96 и возвращайтесь — звучащие ноты не обрываются.</div>
+</section>
+
+<section>
+  <h2><span class="n">11</span>Пресеты и настройки</h2>
+  <h3>Пресеты</h3>
+  <p>Фабричные: <b>Talk To Me</b>, <b>Untrust</b>, <b>You Are Correct</b>, <b>Spell It</b>, <b>Counting</b>, <b>Bent Toy</b>, <b>Arcade</b>, <b>Robot Choir</b>, <b>Whisper</b>, <b>Child Voice</b>, <b>Syllable Singer</b>, <b>Numbers Station</b>.</p>
+  <p>Пресет хранит фразу и все ручки. Сохранить свой: меню пресета или настройки → <b>Save preset…</b>. Ваши пресеты лежат в <code>~/Music/Talk2Me/Presets/*.t2m</code>, в меню они ниже фабричных, стрелки <b>‹ ›</b> листают и их.</p>
+  <h3>Настройки</h3>
+  <ul>
+    <li><b>Appearance</b> — Match system, Oxygen (светлая), Rubber (тёмная).</li>
+    <li><b>Size</b> — 75, 100, 125, 150%.</li>
+    <li><b>Save preset…</b>, <b>About Talk2Me</b>.</li>
+  </ul>
+  <p>Фраза и ручки сохраняются в проекте Ableton. Тема и размер окна — общие для всех проектов (<code>~/Library/Application Support/Talk2Me</code>).</p>
+  <div class="note"><b>Клавиатура.</b> Tab переходит между элементами, вокруг активного рисуется оранжевая рамка. Пробел или Return нажимает, стрелки меняют значения и переключают вкладки.</div>
+  <figure class="small"><img src="img/main_oxygen.jpg"><figcaption>Светлая тема Oxygen.</figcaption></figure>
+</section>
+
+<section>
+  <h2><span class="n">12</span>Рецепты</h2>
+  <div class="keep">
+    <h3>Talkbox-лид</h3>
+    <ol>
+      <li>Talk 96, режим Phrase, Poly выключен, Loop включён.</li>
+      <li>Glide <span class="mono">60–120 ms</span>, Intonation <span class="mono">0–15%</span>, Vibrato <span class="mono">20%</span>.</li>
+      <li>Играйте легато: фраза не начинается заново, высота едет за клавишами.</li>
+    </ol>
+  </div>
+  <div class="keep">
+    <h3>Спеть свой текст</h3>
+    <ol>
+      <li>Режим Syllables, Intonation 0, Release <span class="mono">100–200 ms</span>.</li>
+      <li>Одна нота — один слог. Длинная нота тянет гласную.</li>
+      <li>Если слог разбился не так — напишите слово фонемами в фигурных скобках.</li>
+    </ol>
+  </div>
+  <div class="keep">
+    <h3>Сломанная игрушка</h3>
+    <ol>
+      <li>Spell 80, TMS5100 '79, Bend <span class="mono">60–80%</span>, Drive <span class="mono">+2</span>.</li>
+      <li>Glitch <span class="mono">30–50%</span>, Loop включён, держите одну ноту.</li>
+    </ol>
+  </div>
+  <div class="keep">
+    <h3>Хор роботов</h3>
+    <ol>
+      <li>Talk 96, Voice Robot, Poly, Intonation 0, Release <span class="mono">400 ms</span>.</li>
+      <li>Аккорд из 3–4 нот: все голоса поют одну фразу.</li>
+    </ol>
+  </div>
+  <div class="keep">
+    <h3>Нарезка по клавишам</h3>
+    <ol>
+      <li>Режим Keys, фраза из отдельных слов, например <code>one two three four</code>.</li>
+      <li>C3, C#3, D3… — каждое слово на своей клавише. Высоту задаёт Pitch.</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">13</span>Вопросы и ответы</h2>
+  <table>
+    <tr><th style="width:56mm">Вопрос</th><th>Ответ</th></tr>
+    <tr><td>Talk2Me не появился в Ableton</td><td>Settings → Plug-Ins: включены «Use VST3 Plug-ins» и «Use Audio Units», затем Rescan. Если не помогло, повторите установку скриптом: он снимает карантин macOS.</td></tr>
+    <tr><td>macOS пишет, что плагин повреждён</td><td>Это карантин неподписанного плагина. Запустите <code>install-mac.sh</code> ещё раз.</td></tr>
+    <tr><td>Нет звука</td><td>Talk2Me — инструмент: он должен стоять на MIDI-дорожке. Проверьте, что фраза не пустая и Out не на минимуме.</td></tr>
+    <tr><td>Слово читается неправильно</td><td>Напишите его фонемами: <code>{T AH0 M EY1 T OW2}</code>. Список фонем — в разделе 05.</td></tr>
+    <tr><td>Русский текст не произносится</td><td>Поддерживается только английский; кириллица пропускается. Русское слово можно записать английскими фонемами в фигурных скобках.</td></tr>
+    <tr><td>Каждая нота начинает фразу заново</td><td>В режиме Phrase играйте легато (следующая нота до отпускания предыдущей) и выключите Poly.</td></tr>
+    <tr><td>На высоких нотах Spell 80 звучит грубо</td><td>Так звучит чип: импульс короче периода обрезается. Выключите Chip pitch, если ноты «плывут».</td></tr>
+    <tr><td>Откроются ли старые проекты после обновления?</td><td>Да, состояние сохраняется между версиями. Если диапазон какого-то параметра меняется, это будет сказано в патчноуте.</td></tr>
+    <tr><td>Где история изменений</td><td>На странице релизов GitHub, у каждой версии свой патчноут.</td></tr>
+  </table>
+  <p style="margin-top:8mm; color: var(--ink2); font-size: 9pt;">Talk2Me v1 · made by nnn · написан на C++ и JUCE 8. Таблицы чипов — из MAME (BSD-3), словарь — CMUdict (BSD), шрифты Medeo — SIL Open Font License.<br>Исходники и релизы: <span class="mono">github.com/controloptioncommand/Talk2me</span></p>
+</section>
+
+</body>
+</html>

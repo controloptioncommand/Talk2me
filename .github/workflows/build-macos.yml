@@ -76,6 +76,7 @@ jobs:
           cp -R build/Talk2Me_artefacts/Release/VST3/Talk2Me.vst3 dist/
           cp -R build/Talk2Me_artefacts/Release/AU/Talk2Me.component dist/
           cp scripts/install-mac.sh dist/
+          cp docs/Talk2Me-manual.pdf dist/
           # примеры звучания из теста
           mkdir -p dist/demo && cp "$RUNNER_TEMP/render"/demo_*.wav dist/demo/ 2>/dev/null || true
           cd dist && zip -qry ../Talk2Me-macOS.zip .
